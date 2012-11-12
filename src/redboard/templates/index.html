@@ -16,4 +16,49 @@
 	<div class="muted"><strong>Connected Clients</strong></div>
 	<h1 style="margin: 0;">{{connected_clients}}</h1>
 </div>
+
+<div class="clearfix"></div>
+
+{% if memory %}
+<h3>Memory Consumption</h3>
+<div id="memory"></div>
+{% endif %}
+{% if connections %}
+<h3>Client Connections</h3>
+<div id="connections"></div>
+{% endif %}
+
+{% if memory or connections %}
+<script src="http://alexyoung.github.com/ico/raphael.js"></script>
+<script src="http://alexyoung.github.com/ico/ico.js"></script>
+
+<script>
+{% if memory %}
+	new Ico.LineGraph(
+		document.getElementById('memory'),
+		{
+			k: {{memory|safe}}
+		},
+		{
+			colours: { k: '#990000'},
+			height: 300,
+			grid: true
+		}
+	);
+{% endif %}
+{% if connections %}
+	new Ico.LineGraph(
+		document.getElementById('connections'),
+		{
+			k: {{connections|safe}}
+		},
+		{
+			colours: { k: '#990000'},
+			height: 300,
+			grid: true
+		}
+	);
+{% endif %}
+</script>
+{% endif %}
 {% endblock %}

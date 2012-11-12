@@ -1,5 +1,8 @@
+import json
 from redis import Redis, from_url
 from flask import g, Blueprint, current_app, render_template
+from .stats import Memory, Connections
+
 
 dashboard = Blueprint('redboard', __name__, template_folder='templates', static_folder='static')
 
@@ -30,6 +33,18 @@ def index():
 
     keys['total_keys'] = total_keys
     keys['db_index'] = db_index
+
+    try:
+        memory_time, memory_values = zip(*Memory(g.redboard_redis_conn).get())
+        keys['memory'] = json.dumps(map(lambda x: x / 1024, memory_values))
+    except ValueError:
+        pass
+
+    try:
+        connections_time, connections_values = zip(*Connections(g.redboard_redis_conn).get())
+        keys['connections'] = json.dumps(connections_values)
+    except ValueError:
+        pass
 
     return render_template('index.html', page="index", **keys)
 
