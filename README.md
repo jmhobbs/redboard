@@ -2,7 +2,7 @@
 
 It's main feature is the fact that you can embed it in other Flask applications through the power of Blueprints.
 
-![redboard](https://dl.dropbox.com/u/28665584/screenshots/2012-11-12-171339_600x463_scrot.png)
+![redboard](https://dl.dropbox.com/u/28665584/screenshots/2012-11-12-171828_600x464_scrot.png)
 
 Thanks to `rq-dashboard` for inspiring me to learn how to make that work.
 
