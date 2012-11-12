@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if pattern %}
+<h1>keys | {{pattern}}</h1>
+<table class="table table-striped table-bordered table-condensed table-hover">
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>View</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for key in keys %}
+		<tr>
+			<td><tt>{{key}}</tt></td>
+			<td><a href="{{url_for('redboard.key', key=key)}}" class="btn btn-info btn-mini">View</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<h3>Be Careful!</h3>
+<p>Key queries should only be used in production environments with extreme care. It may ruin performance when it is executed against large databases.</p>
+{% endif %}
+{% endblock %}

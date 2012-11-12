@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>redboard</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<a class="brand" href="{{url_for('redboard.index')}}">redboard</a>
+					<ul class="nav">
+						<li{% if "index" == page %} class="active"{% endif %}><a href="{{url_for('redboard.index')}}">home</a></li>
+						<li{% if "info" == page %} class="active"{% endif %}><a href="{{url_for('redboard.info')}}">info</a></li>
+						<li{% if "keys" == page %} class="active"{% endif %}><a href="{{url_for('redboard.keys')}}">keys</a></li>
+					</ul>
+				</div>
+			</div>
+			{% block body %}{% endblock %}
+		</div><!-- .container -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min.js"></script>
+	</body>
+</html>

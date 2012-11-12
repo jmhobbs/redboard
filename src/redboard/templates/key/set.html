@@ -1,0 +1,17 @@
+{% extends "key.html" %}
+{% block details %}
+<table class="table table-striped table-bordered table-condensed table-hover">
+	<thead>
+		<tr>
+			<th>Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in members %}
+		<tr>
+			<td><tt>{{value}}</tt></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
