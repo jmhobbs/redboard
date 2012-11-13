@@ -1,6 +1,6 @@
 import json
 from redis import Redis, from_url
-from flask import g, Blueprint, current_app, render_template
+from flask import g, request, Blueprint, current_app, render_template, redirect, url_for
 from .stats import Memory, Connections
 
 
@@ -58,7 +58,10 @@ def info():
 @dashboard.route('/keys/')
 @dashboard.route('/keys/<path:pattern>')
 def keys(pattern=None):
-    if pattern:
+    if not pattern:
+        if request.args.get('pattern', None):
+            return redirect(url_for('redboard.keys', pattern=request.args.get('pattern')))
+    else:
         pattern = pattern.strip()
         if 0 == len(pattern):
             pattern = None
@@ -71,8 +74,14 @@ def keys(pattern=None):
     return render_template('keys.html', page="keys", **keys)
 
 
+@dashboard.route('/key')
 @dashboard.route('/key/<path:key>')
-def key(key):
+def key(key=None):
+    if not key:
+        if request.args.get('key', None):
+            return redirect(url_for('redboard.key', key=request.args.get('key')))
+        return redirect(url_for('redboard.keys'))
+
     key_type = g.redboard_redis_conn.type(key)
     keys = {"key": key, "type": key_type}
     if "string" == key_type:
